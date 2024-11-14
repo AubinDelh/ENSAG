@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Votez pour l'ENSAG</title>
+    <style>
+        /* Style global */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Fond gris clair */
+            color: #000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        /* Titre principal */
+        h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        /* Sous-titre */
+        .subtitle {
+            font-size: 1.1em;
+            color: #333;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Style des carrousels */
+        .carousel-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .carousel {
+            position: relative;
+            flex: 1 1 45%;
+            max-width: 45%;
+            background-color: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .carousel img {
+            width: 100%;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .carousel img.active {
+            display: block;
+        }
+
+        /* Boutons de navigation */
+        .carousel .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2em;
+            color: #000;
+            background: rgba(255, 255, 255, 0.5);
+            border: none;
+            cursor: pointer;
+            padding: 0 10px;
+            z-index: 10;
+            user-select: none;
+            border-radius: 50%;
+        }
+
+        .carousel .arrow.left {
+            left: 10px;
+        }
+
+        .carousel .arrow.right {
+            right: 10px;
+        }
+
+        /* Bouton de vote */
+        .vote-button {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            font-size: 1.2em;
+            padding: 12px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 40px;
+        }
+
+        .vote-button:hover {
+            background-color: #333;
+        }
+
+        /* Media queries pour mobile */
+        @media (max-width: 768px) {
+            .carousel-container {
+                flex-direction: column;
+            }
+
+            .carousel {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Grand Titre -->
+        <h1>Votez pour la future identité visuelle de l'ENSAG</h1>
+        
+        <!-- Sous-titre -->
+        <p class="subtitle">
+            Participez au choix de la nouvelle identité visuelle de l'école nationale supérieure d'architecture de Grenoble.
+        </p>
+
+        <!-- Conteneur des deux carrousels -->
+        <div class="carousel-container">
+            <!-- Carrousel 1 -->
+            <div class="carousel" id="carousel1">
+                <img src="image.jpg" alt="Logo" class="active">
+                <img src="image2.jpg" alt="Logo UGA">
+                <img src="image3.jpg" alt="Affiches">
+                <img src="image4.jpg" alt="Lettres">
+                <img src="image5.jpg" alt="Illustration">
+                <img src="image6.jpg" alt="Casquette">
+                <img src="image7.jpg" alt="Édition Diplôme">
+                <button class="arrow left" onclick="prevImage('carousel1')">&#10094;</button>
+                <button class="arrow right" onclick="nextImage('carousel1')">&#10095;</button>
+            </div>
+
+            <!-- Carrousel 2 -->
+            <div class="carousel" id="carousel2">
+                <img src="image8.jpg" alt="Logo" class="active">
+                <img src="image9.jpg" alt="Logo UGA">
+                <img src="image10.jpg" alt="Affiches">
+                <img src="image11.jpg" alt="Lettres">
+                <img src="image12.jpg" alt="Illustration">
+                <img src="image13.jpg" alt="Casquette">
+                <img src="image14.jpg" alt="Édition Diplôme">
+                <button class="arrow left" onclick="prevImage('carousel2')">&#10094;</button>
+                <button class="arrow right" onclick="nextImage('carousel2')">&#10095;</button>
+            </div>
+        </div>
+
+        <!-- Bouton de vote -->
+        <a href="https://forms.google.com" class="vote-button" target="_blank">Voter</a>
+    </div>
+
+    <!-- JavaScript pour le carrousel -->
+    <script>
+        function showImage(carouselId, index) {
+            const images = document.querySelectorAll(`#${carouselId} img`);
+            images.forEach((img, i) => img.classList.toggle("active", i === index));
+        }
+
+        function nextImage(carouselId) {
+            const images = document.querySelectorAll(`#${carouselId} img`);
+            let currentIndex = Array.from(images).findIndex(img => img.classList.contains("active"));
+            showImage(carouselId, (currentIndex + 1) % images.length);
+        }
+
+        function prevImage(carouselId) {
+            const images = document.querySelectorAll(`#${carouselId} img`);
+            let currentIndex = Array.from(images).findIndex(img => img.classList.contains("active"));
+            showImage(carouselId, (currentIndex - 1 + images.length) % images.length);
+        }
+
+        // Fonction pour faire défiler automatiquement
+        function autoScroll(carouselId) {
+            setInterval(() => nextImage(carouselId), 3000); // Change d'image toutes les 3 secondes
+        }
+
+        // Initialisation de l'auto-défilement pour chaque carrousel
+        document.addEventListener("DOMContentLoaded", () => {
+            autoScroll("carousel1");
+            autoScroll("carousel2");
+        });
+    </script>
+
+</body>
+</html>
