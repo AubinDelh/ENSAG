@@ -181,7 +181,9 @@
             let currentIndex = Array.from(images).findIndex(img => img.classList.contains("active"));
             showImage(carouselId, (currentIndex - 1 + images.length) % images.length);
         }
-
+// Fonction pour faire défiler automatiquement
+        function autoScroll(carouselId) {
+            setInterval(() => nextImage(carouselId), 6000); // Change d'image toutes les 6 secondes
         }
 
         // Initialisation de l'auto-défilement pour chaque carrousel
